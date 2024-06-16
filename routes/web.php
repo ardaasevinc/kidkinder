@@ -1,14 +1,17 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Models\Aboutus;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DashController;
 use App\Http\Controllers\AboutusController;
+use App\Http\Controllers\HomeController;
 
-Route::get('/', function () {
-    return view('frontend/index');
+
+Route::get('/', function(){
+    $x = Aboutus::latest();
+    return view('frontend.index', compact('x'));
 });
-
 
 Route::get('/base', function () {
     return view('frontend/base');
@@ -21,14 +24,12 @@ Route::get('/dashboard', function () {
     return view('backend/dashboard');
 })->middleware(['auth', 'verified'])->name('/backend/dashboard');
 
+
+
 Route::get('/logo', [DashController::class, 'slider'])->name('slider');
 Route::get('/services', [DashController::class, 'services'])->name('services');
-
 Route::get('/aboutus', [AboutusController::class, 'create'])->name('aboutus.create');
 Route::post('/aboutus', [AboutusController::class, 'store'])->name('aboutus.store');
-
-
-
 Route::get('/sitesettings', [DashController::class, 'sitesettings'])->name('sitesettings');
 Route::get('/persons', [DashController::class, 'bpersons'])->name('bpersons');
 Route::get('/blog', [DashController::class, 'bblog'])->name('bblog');

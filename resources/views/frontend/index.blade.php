@@ -7,9 +7,4 @@
     @include('frontend/parts/team-part')
     @include('frontend/parts/blog-part')
 
-
-
-
-
-
 @endsection
